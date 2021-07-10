@@ -1,0 +1,29 @@
+<section id="welcome">
+    {{- if eq .Site.BaseURL .Permalink -}}
+    <div class="content">
+        <div>
+            <img src="{{ .Site.BaseURL }}/images/avatar.png" alt="avatar" id="my-avatar">
+        </div>
+        <div class="subtitle">
+            <h1>Hey what's up, I'm Chidi</h1>
+            <p>I’m a Mobile and Fullstack Web Developer from Nigeria, thanks for taking the time to check out my articles.
+            By writing down these thoughts and experiences i take steps to move from what i am to what i want to become.</p>
+        </div>
+    </div>
+    {{- else -}}
+    <div class="content">
+        <div>
+            <h1>{{ .Title }}</h1>
+
+            <p>
+                {{ if isset .Params "description" }}
+                {{ .Description }}
+                {{ end }}
+            </p>
+            <p>
+                <div class="meta">Posted on {{ dateFormat "Jan 2, 2006" .Date }}{{ if .Draft }} <span class="draft-label">DRAFT</span> {{ end }}</div>
+            </p>
+        </div>
+    </div>
+    {{- end -}}
+</section>

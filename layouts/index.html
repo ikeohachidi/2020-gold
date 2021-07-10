@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	{{ partial "header.html" . }}
+	<body>
+		{{ partial "head.html" . }}
+		<div class="content">
+			
+			<main class="list">
+				{{ $pages := where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
+				{{ $paginator := .Paginate (where $pages "Params.hidden" "ne" true) }}
+				{{ range $paginator.Pages }}
+				<section class="list-item">
+					<h1 class="title"><a href="{{ .RelPermalink }}">{{.Title}}</a></h1>
+					<br><div class="description">
+						{{ if isset .Params "description" }}
+						{{ .Description }}
+						{{ else }}
+						{{ .Summary }}&hellip;
+						{{ end }}
+					</div>
+					<div class="actions">
+						<a href="{{ .RelPermalink }}" class="article-link">
+							<img src="{{ .Site.BaseURL }}/images/zap.svg" alt="zap icon" class="zap-icon">
+							Read
+						</a>
+						<time>{{ dateFormat "Jan 2, 2006" .Date }}{{ if .Draft }} <span class="draft-label">DRAFT</span> {{ end }}</time>
+					</div>
+				</section>
+				{{ end }}
+				{{ template "partials/paginator.html" . }}
+			</main>
+		</div>
+		{{ partial "footer.html" . }}
+	</body>
+</html>
